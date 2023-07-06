@@ -102,10 +102,11 @@ form.create-note textarea {
   font-family: inherit;
   resize: none;
 }
+
 form.create-note button {
   position: absolute;
   right: 18px;
-  bottom: -18px;
+  top: 18px;
   background: #f5ba13;
   color: #fff;
   border: none;

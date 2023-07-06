@@ -5,24 +5,38 @@ export function CreateToDoItem() {
 	const [isFocus, setFocus] = useState(false);
 	const [todo, setToDo] = useState("");
 
-	function submitNote(event){
+	function SubmitToDo(event){
 		event.preventDefault();
-
 	}
+
+	function FocusHandling(){
+		setFocus(true)
+	}
+
+	function HandleChange(event){
+		const { name, value } = event.target
+		setToDo((prevState) => {
+			return value;
+		})
+	}
+
+	function ResetFocus(){
+		setFocus(false)
+	}
+
 	return (
 		<div>
 			<form className="create-note">
-				{isFocus && (
-					<input
-						name="title"
-						onChange={ console.log("changed")}
-						value={todo}
-						placeholder="To Do"
-					/>
-				)}
-				<input name="insertToDoList" className="note" />
+				<input
+					name="todoItem"
+					onFocus={FocusHandling}
+					onBlur={ResetFocus}
+					onChange={HandleChange}
+					value={todo}
+					placeholder={"To Do Task"}
+				/>
 				<Zoom in={isFocus}>
-					<Fab onClick={submitNote}>
+					<Fab onClick={SubmitToDo}>
 						<AddIcon />
 					</Fab>
 				</Zoom>
