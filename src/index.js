@@ -4,10 +4,9 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import {Provider, createStoreHook} from 'react-redux';
-import todoReducer from "./store/todo/todo.reducer";
+import {store} from './store/index';
 
 
-const store = createStoreHook(todoReducer);
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
