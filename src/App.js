@@ -19,8 +19,6 @@ function App() {
       <div className="App">
         <Header />
         <CreateToDoItem />
-        {/*<DisplayToDoList />*/}
-
         <Footer />
       </div>
   );
