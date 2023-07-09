@@ -77,7 +77,7 @@ export function DisplayToDoList(props) {
 
 				{
 					sort === 'desc' && toDoList.sort((a, b) => b.item.localeCompare(a.item)).map((item) => (
-							item.completed == false && <ToDoItem key={item.id} item={item} dispatch={dispatch} />
+							item.completed === false && <ToDoItem key={item.id} item={item} dispatch={dispatch} />
 						)
 					)
 				}
