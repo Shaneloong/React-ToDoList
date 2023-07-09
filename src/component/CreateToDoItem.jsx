@@ -1,43 +1,36 @@
-import {Fab, Zoom} from "@mui/material";
 import AddIcon from '@mui/icons-material/Add';
-import {useState} from "react";
+import React, {useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
-import {v4} from 'uuid';
 import {addTodo} from "../store/todo/todo.actions";
+import {v4} from "uuid";
+import {DisplayToDoList} from "./DisplayToDoList";
 
-export function CreateToDoItem() {
-	const [isFocus, setFocus] = useState(false);
+export function CreateToDoItem(props) {
 	const [todo, setToDo] = useState("");
 	const dispatch = useDispatch();
-	const toDoList = useSelector(() => {})
+	const toDoList = useSelector(state => state);
 
 	function SubmitToDo(event){
-		const id = v4();
-		const status = 'not_done';
-		let toDoItem = {
-			id: id,
-			status: status,
-			toDo: todo,
-		};
-		setToDo("");
-		dispatch(addTodo(toDoItem));
-
 		event.preventDefault();
-	}
-
-	function FocusHandling(){
-		setFocus(true)
+		if(todo !== ""){
+			dispatch(addTodo({id: v4(), completed: false, item: todo}));
+			setToDo("");
+		}
+		else{
+			alert("Please add a To Do Task");
+		}
 	}
 
 	function HandleChange(event){
-		const { name, value } = event.target
-		setToDo((prevState) => {
-			return value;
-		})
+		const { name, value } = event.target;
+		setToDo(value);
 	}
 
-	function ResetFocus(){
-		setFocus(false)
+	function HandleKeydown(event){
+		if(event.key === "Enter"){
+			event.preventDefault();
+			SubmitToDo(event);
+		}
 	}
 
 	return (
@@ -45,18 +38,19 @@ export function CreateToDoItem() {
 			<form className="create-note">
 				<input
 					name="todoItem"
-					onFocus={FocusHandling}
-					onBlur={ResetFocus}
 					onChange={HandleChange}
+					onKeyDown = {HandleKeydown}
 					value={todo}
 					placeholder={"To Do Task"}
 				/>
-				<Zoom in={isFocus}>
-					<Fab onClick={SubmitToDo}>
-						<AddIcon />
-					</Fab>
-				</Zoom>
+
+				<button onClick={SubmitToDo}>
+					<AddIcon />
+				</button>
+
 			</form>
+
+			<DisplayToDoList toDoList={toDoList} dispatch={dispatch} />
 		</div>
 	)
 }
